@@ -8,7 +8,7 @@ cap = cv2.VideoCapture(0)
 r=255
 g=0
 b=0
-
+count = 0
 while(True):    
     ret, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
@@ -17,8 +17,9 @@ while(True):
         cv2.rectangle(frame,(x,y),(x+w,y+h),(255,255,0),2)  
         roi_gray = gray[y:y+h, x:x+w] 
         roi_color = frame[y:y+h, x:x+w]
-        print(x+w,y+h)
-        eyes = eye_cascade.detectMultiScale(roi_gray,1.5,10)  
+        cv2.imwrite(".\output\image"+str(count)+".png",roi_color)
+        count += 1
+        eyes = eye_cascade.detectMultiScale(roi_gray,1.5,10)
         for (ex,ey,ew,eh) in eyes: 
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,127,255),2) 
   
